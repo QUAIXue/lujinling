@@ -1,0 +1,27 @@
+// 用户钱包表 user_wallet
+/* id: 钱包记录ID
+ser_id: 用户ID（关联用户表）
+balance: 钱包余额
+created_at: 记录创建时间
+updated_at: 记录更新时间*/
+CREATE TABLE user_wallet (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            user_id INT NOT NULL,
+            balance DECIMAL(10, 2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );
+
+//    钱包交易明细表 wallet_transaction
+/*id: 交易记录ID
+wallet_id: 钱包ID（关联用户钱包表）
+amount: 交易金额
+type: 交易类型（'recharge' - 充值，'consume' - 消费，'refund' - 退款，'withdrawal' - 提现）
+created_at: 交易时间*/
+CREATE TABLE wallet_transaction (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            wallet_id INT NOT NULL,
+            amount DECIMAL(10, 2),
+    type ENUM('recharge', 'consume', 'refund', 'withdrawal'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
